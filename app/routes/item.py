@@ -9,13 +9,11 @@ from app.models import Item
 router = APIRouter()
 memory_items = [
     {
-        'id': 1,
         'name': 'Item 1',
         'description': 'Item 1 description'
         
     },
     {
-        'id': 2,
         'name': 'Item 2',
         'description': 'Item 2 description'        
     }
