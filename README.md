@@ -75,7 +75,7 @@ fastapi-ci-cd-starter/
 │   │   └── items.py        # Example API routes
 ├── tests/
 |   |   |--- __init__.py
-│   └── test_items.py       # Example test for the API
+│   |   └── test_items.py       # Example test for the API
 ├── Dockerfile              # Dockerfile for the FastAPI app
 ├── .gitignore              # gitignore file
 ├── .dockerignore           # Dockerignore file
