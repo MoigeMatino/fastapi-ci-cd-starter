@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.4
+# syntax=docker/dockerfile:1
 
 ARG PYTHON_VERSION=3.10.12
 FROM python:${PYTHON_VERSION}-slim AS base
