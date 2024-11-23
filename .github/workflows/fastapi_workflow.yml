@@ -36,11 +36,32 @@ jobs:
         run: |
           docker compose --env-file .env up -d --build
 
-      - name: Wait for services to start
-        run: sleep 30
-
-      - name: Check running containers
-        run: docker compose ps
+      - name: Wait for services and verify health
+        run: |
+          # Wait for containers to start
+          sleep 10
+  
+          # Check if containers are running
+          docker compose ps
+  
+          # Wait for FastAPI service to be ready (adjust the port if different)
+          timeout=60
+          while ! curl -s http://localhost:8000/health > /dev/null; do
+            if [ $timeout -le 0 ]; then
+              echo "Timeout waiting for FastAPI service"
+              docker compose logs
+              exit 1
+            fi
+            echo "Waiting for FastAPI service... ($timeout seconds remaining)"
+            sleep 5
+            timeout=$((timeout - 5))
+          done
+  
+          # Check PostgreSQL
+          until docker compose exec -T db pg_isready; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
 
       - name: Run tests
         run: |
